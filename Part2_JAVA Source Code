@@ -1,0 +1,116 @@
+import java.sql.*;
+
+public class PaperReviewDriver{
+   static final String JDBC_DRIVER = "com.mysql.jdbc.PaperReviewDriver";  
+   static final String DB_URL = "jdbc:mysql://localhost/sm_sql";
+
+ 
+   static final String USER = "root";
+   static final String PASS = "root123";
+   
+   public static void main(String[] args) {
+   Connection conn = null;
+   Statement stmt = null;
+   try{
+      
+      Class.forName("com.mysql.jdbc.PaperReviewDriver");
+
+      System.out.println("Connecting to database...");
+      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+      
+      System.out.println("Creating database...");
+      stmt = conn.createStatement();
+      
+      String sql = "CREATE DATABASE STUDENTS";
+      stmt.executeUpdate(sql);
+      System.out.println("Database created successfully...");
+  
+   
+   System.out.println("Creating table in given database...");
+   stmt = conn.createStatement();
+   
+   String author = "CREATE TABLE author " +
+           "(email_id VARCHAR(100) not NULL, " +
+           " first_name CHAR(50), " + 
+           " last_name CHAR(50), " +  
+           " PRIMARY KEY ( email_id ))"; 
+   stmt.executeUpdate(author);
+   System.out.println("Created table author in given database...");
+
+   String paper = "CREATE TABLE paper " +
+           "(paper_id INTEGER not NULL, " +
+           " title CHAR(50), " + 
+           " abstract VARCHAR(10000), " + 
+           " file_name CHAR(50), " +
+           " PRIMARY KEY ( paper_id ))";
+   stmt.executeUpdate(paper);
+   System.out.println("Created table paper author in given database...");
+
+   String reviewer = "CREATE TABLE reviewer " +
+           "(reviewer_id INTEGER not NULL, " +
+           "email_id VARCHAR(100) not NULL, " +
+           " first_name CHAR(50), " + 
+           " last_name CHAR(50), " +  
+           " phone_no INTEGER(10), " + 
+           " affiliation CHAR(50), " + 
+           " author_feedback CHAR(100), " +
+           " committee_feedback CHAR(100), " +
+           " PRIMARY KEY ( reviewer_id ))";
+   stmt.executeUpdate(reviewer);
+   System.out.println("Created table reviewer paper author in given database...");
+   
+   String review = "CREATE TABLE review " +
+           "(rv_id INTEGER not NULL, " +
+           " paper_id INTEGER not NULL, " +
+           " reviewer_id INTEGER not NULL, " +
+           " recommendation CHAR(100), " + 
+           " merit_score INTEGER, " +  
+           " readibility_score INTEGER, " + 
+           " originality_score INTEGER, " + 
+           " relevance_score INTEGER, " +
+            " PRIMARY KEY ( rv_id ))";
+   stmt.executeUpdate(review);
+   System.out.println("Created table review paper author in given database...");
+ 
+   System.out.println("Inserting records into the table...");
+   stmt = conn.createStatement();
+   
+   String author = "INSERT INTO author " +
+                "VALUES (100, 'Zara', 'Ali', 18)";
+   stmt.executeUpdate(author);
+   author = "INSERT INTO author" +
+                "VALUES (101, 'Mahnaz', 'Fatma', 25)";
+   stmt.executeUpdate(author);
+  author= "INSERT INTO author " +
+                "VALUES (102, 'Zaid', 'Khan', 30)";
+   stmt.executeUpdate(author);
+   author= "INSERT INTO author " +
+                "VALUES(103, 'Sumit', 'Mittal', 28)";
+   stmt.executeUpdate(author);
+   System.out.println("Inserted records into the table...");
+
+   
+   }
+   catch(SQLException se){
+      
+      se.printStackTrace();
+   }catch(Exception e){
+      
+      e.printStackTrace();
+   }finally{
+      
+      try{
+         if(stmt!=null)
+            stmt.close();
+      }catch(SQLException se2){
+      }
+      try{
+         if(conn!=null)
+            conn.close();
+      }catch(SQLException se){
+         se.printStackTrace();
+      }
+   }
+}
+}
