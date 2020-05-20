@@ -10,4 +10,8 @@ Now that we have the driver, we need to tell your project about it. Go back to E
 Select mysql-connector-java-xxxx-bin.jar and press Open
 Now we’re ready to configure the project for your copy of MySQL and run it!
 Open the .java source code file. copy the contents and past it in the ecplise. 
+Import the packages: Requires that you include the packages containing the JDBC classes needed for database programming. Most often, using import java.sql.* will suffice.
+Register the JDBC driver: Requires that you initialize a driver so you can open a communication channel with the database.
+Open a connection: Requires using the DriverManager.getConnection() method to create a Connection object, which represents a physical connection with the database.
+Execute a query: Requires using an object of type Statement for building and submitting an SQL statement to the database.
 Right click on the file with the main method, and from the context menu select the Run->Java Application menu option.
