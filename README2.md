@@ -1,5 +1,5 @@
 Before getting started, you must set up your Java development environment.
-Open ecplise and open a new project, name it as you like.
+Open ecplise EEand open a new project, name it as you like.
 Eclipse might ask you whether you want to switch to the Java perspective. If so, say Yes.
 Connector/J driver so your program can connect to MySQL. Please make sure you download the version that is compatible with your version of MySQL.
 Go to this web page: http://www.mysql.com/downloads/connector/j/
