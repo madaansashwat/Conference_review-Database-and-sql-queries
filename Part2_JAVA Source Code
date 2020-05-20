@@ -48,6 +48,7 @@ System.out.println("Created table author in given database...");
 
 String paper = "CREATE TABLE paper " +
         "(paper_id INTEGER not NULL, " +
+        " email_id VARCHAR(100) not NULL, " +
         " title CHAR(50), " + 
         " abstract VARCHAR(10000), " + 
         " file_name CHAR(50), " +
@@ -81,6 +82,67 @@ String review = "CREATE TABLE review " +
 stmt.executeUpdate(review);
 System.out.println("Created table review paper author in given database...");
 
+#Selecting a paper and author details through author's primary key that is email_id
+String query1= "SELECT paper_id, title, abstract,email_id,first_name, last_name from  author inner join paper on author.email_id = paper.email_id";
+      ResultSet rs = stmt.executeQuery(query1);
+      
+      while(rs.next()){
+         //Retrieve by column name
+         int paper_id = rs.getInt("paper_id");
+         String title = rs.getString("title");
+         String abstract = rs.getString("abstract");
+         String email_id = rs.getString("email_id");
+         String first_name = rs.getString("first_name");
+         String last_name = rs.getString("last_name");
+
+         //Display values
+         System.out.print("Paper_ID: " + paper_id);
+         System.out.print(", Title: " + title);
+         System.out.print(", Abstract: " + abstract);
+         System.out.println(", Email_id: " + email_id);
+         System.out.println(", First Name: " + first_name);
+         System.out.println(", Last Name: " + last_name);
+         
+#Getting all the reviews for a paper through paper_id from the review table
+String query2= "SELECT rv_ id, paper_id, reviewer_id,recommendation, merit_score, readibility_score, originality_score, relevance_score from review";
+      ResultSet rs = stmt.executeQuery(query2);
+      
+      while(rs.next()){
+         //Retrieve by column name
+         int rv_id = rs.getInt("rv_id");
+         int paper_id = rs.getInt("paper_id");
+         int reviewer_id = rs.getInt("reviewer_id");
+         String recommendation = rs.getString("recommendation");
+         int merit_score= rs.getInt("merit_score");
+         int readibility_score= rs.getInt("readibility_score");
+         int originality_score= rs.getInt("originality_score");
+         int relevance_score = rs.getInt("relevance_score");
+
+         //Display values
+         System.out.print("REVIEW_ID: " + rv_id);
+         System.out.print("Paper_ID: " + paper_id);
+         System.out.print(", Reviewer_ID: " + reviewer_id;
+         System.out.print(", Recommendation: " + recommendation);
+         System.out.println(", Merit Score: " + merit_score);
+         System.out.println(", Readibility Score: " + readibility_score);
+         System.out.println(", Originality Score: " + originality_score);
+         System.out.println(", Relevance Score: " + relevance_score);
+
+//Inserting a new paper details in both the tables.
+paper = "INSERT INTO paper " +
+                   "VALUES(104, 'ka@gmail.com', 'Question paper Generator', 'Question paper generator is solution for schools/colleges and other educational institutes', 'QPG')";
+      stmt.executeUpdate(paper);
+      System.out.println("Inserted records into the table paper...");
+      
+author = "INSERT INTO author " +
+                   "VALUES('ka@gmail.com', 'Kevin', 'Andrews')";
+      stmt.executeUpdate(author);
+      System.out.println("Inserted records into the table author...");
+
+//Deleting a author row in the author table
+String query3 = "DELETE FROM author " +
+                   "WHERE id = 101";
+      stmt.executeUpdate(query3);
 
 }
 catch(SQLException se){
